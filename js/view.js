@@ -9,13 +9,22 @@ var directionsService;
 var directionsDisplay;
 var ratings = [];
 
-var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
+ var waypointURL = 'https://ctc12.azurewebsites.net/api/waypoint';
+ var toursURL = 'https://ctc12.azurewebsites.net/api/tours';
+
+ var jsonString =  jQuery.parseJSON('[{"Name":"Kildrummy Castle","Description":"Discover the imposing 13th century stronghold of the Earls of Mar.","Category":"Castles","Latitude":57.2354,"Longitude":-2.8999,"Url":"https://www.historicenvironment.scot/visit-a-place/places/kildrummy-castle/","HasFee":"3","TelephoneNumber":null,"IsAccessible":true,"HasParking":false},{"Name":"Huntly Castle","Description":"A magnificent ruin of a castle from the 12th-century motte to the palace block erected in the 16th and 17th centuries by the Gordon family.","Category":"Castles","Latitude":57.4554,"Longitude":-2.78045,"Url":"https://www.historicenvironment.scot/visit-a-place/places/huntly-castle/","HasFee":"3.60","TelephoneNumber":null,"IsAccessible":true,"HasParking":false},{"Name":"Tolquhon Castle","Description":"Explore the impressive ruins of this fairytale castle set in the stunning Grampian countryside.","Category":"Castles","Latitude":57.3518,"Longitude":-2.2133,"Url":"https://www.historicenvironment.scot/visit-a-place/places/tolquhon-castle/","HasFee":"3","TelephoneNumber":null,"IsAccessible":true,"HasParking":true},{"Name":"Fyvie Castle, Garden & Estate","Description":"A magnificent fortress in the heart of Aberdeenshire, Fyvie Castle’s 800-year history is rich in legends, folklore and even ghost stories. Discover the amazing collection of antiquities, armour and lavish oil paintings. Stroll around the picturesque loch, or visit the restored glass-roofed racquets court and ice house.","Category":"Castles","Latitude":57.4483,"Longitude":-2.3951,"Url":"http://www.nts.org.uk/Property/Fyvie-Castle/","HasFee":null,"TelephoneNumber":null,"IsAccessible":true,"HasParking":false},{"Name":"Craigievar Castle","Description":"If fairytales were real, all castles would look like Craigievar. Discover the beautiful property said to be the inspiration for Disney’s Cinderella Castle. Admire an impressive collection of artefacts and art – including Raeburn portraits, armour and weapons – or enjoy a peaceful stroll around the garden and estate.","Category":"Castles","Latitude":57.17439,"Longitude":-2.7193,"Url":"http://www.nts.org.uk/Property/Craigievar-Castle/","HasFee":null,"TelephoneNumber":null,"IsAccessible":true,"HasParking":true},{"Name":"Delgatie Castle Estate Trust","Description":"Dating from about 1050, Delgatie is a uniquely Scottish Castle. It is the home of the late Captain and Mrs Hay of Delgatie, and is the Clan Hay Centre.","Category":"Castles","Latitude":57.54817,"Longitude":-2.41282,"Url":"http://www.delgatiecastle.com","HasFee":null,"TelephoneNumber":null,"IsAccessible":false,"HasParking":false}]');
+
 
 $(document).ready(function(){
 
+
     $('#route').hide();
 
-    pullLocations();
+    // pullTours();
+
+
+
+    // pullLocations();
 
     //Change locations
     $('#pub-locations').change(function(){
@@ -38,6 +47,105 @@ $(document).ready(function(){
 
 });
 
+ initMap();
+
+ google.maps.event.addListenerOnce(map, 'idle', function(){
+     pullWaypoints();
+ });
+
+ function initMap() {
+     var myCenter;
+     var myOptions = {
+         center: {lat: 0, lng: 0},
+         zoom: 14,
+         styles: [{
+             featureType: 'poi',
+             stylers: [{visibility: 'off'}]  // Turn off points of interest.
+         }, {
+             featureType: 'transit.station',
+             stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
+         }],
+         fullscreenControl: true
+     };
+
+     //Create new map
+     map = new google.maps.Map(document.getElementById('map'), myOptions);
+     //Related map services
+     directionsService = new google.maps.DirectionsService;
+     directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+     geocoder = new google.maps.Geocoder;
+ }
+
+function pullTours(){
+    $.getJSON(toursURL, function( data ) {
+        var items = [];
+
+        $.each( data, function( key, val ) {
+            items.push( "<li id='" + key + "'>" + val + "</li>" );
+            console.log(key, val);
+        });
+
+       console.log( items.toString());
+
+        $( "<ul/>", {
+            "class": "my-new-list",
+            html: items.join( "" )
+        }).appendTo( "body" );
+    });
+}
+
+function pullWaypoints(){
+        $.each(jsonString, function( key, val ) {
+            //items.push(key, val);
+            var lat = val.Latitude;
+            var lng =  val.Longitude;
+            var name = val.Name;
+            console.log(name);
+            console.log(lat);
+            var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
+
+
+
+
+
+            // $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
+
+            //add marker details to marker array
+            markers.push({
+                location: location,
+                stopover: true
+            });
+        });
+
+        console.log(markers);
+
+    // jsonString.forEach(function(waypoints) {
+    //
+    //     var data = waypoints;
+    //     console.log(data);
+    //     //rebuild location
+    //     var lat = data.lat;
+    //     var lng =  data.lng;
+    //     var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
+    //     var stopover = data.stopover;
+    //     var name = data.PubName;
+    //
+    //     console.log(name);
+    //
+    //     $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
+    //
+    //     //add marker details to marker array
+    //     markers.push({
+    //         location: location,
+    //         stopover: true
+    //     });
+    //
+    //     letterCount++;
+    // });
+    /*Crawl Waypoints Fetch from firebase ENDS*/
+    calculateAndDisplayRoute(directionsDisplay, directionsService);
+    google.maps.event.trigger(map, 'resize');
+}
 
 /*
  * Gets locations from firebase to fill the location combo box

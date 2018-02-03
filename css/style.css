@@ -2,9 +2,9 @@
     By CASA group for CM2003
  */
 body{
-    background-color: #59323C;
+    background-color: #000000;
     font-family: "chawp","serif";
-    background-image: url("../img/Dunnottar_Castle.jpg");
+    /*background-image: url("../img/Dunnottar_Castle.jpg");*/
     height: 100%;
     margin: 0;
     padding: 0;
@@ -50,7 +50,7 @@ a{
     color: white;
 }
 a:hover{
-    color: #EB7D2F;
+    color: #FFE800;
 }
 a:visited{
     color: white;
@@ -117,7 +117,7 @@ footer{
 .blackboard{
     color: white;
     background-color: black;
-    border: 1em ridge #8C6954;
+    border: 1em groove #FFE800;
     padding: 1em;
     background-image: url("../img/bg.png");
 }
