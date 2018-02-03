@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<!-- Header starts here holds links to CSS files and google map script-->
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <title>PathFinder | Display Trail </title>
+
+    <!--Unsemantic framework CSS-->
+    <link rel="stylesheet" href="../css/unsemantic.min.css">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!--Jquery Library-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!--Javascript methods-->
+    <script src ="../js/methods.js"></script>
+
+    <!--Display route script-->
+    <script src ="js/display.js"></script>
+
+</head>
+<body>
+    <!-- Navigation container starts here holds app logo/tile -->
+    <nav class="grid-container text-center">
+        <a class="site-title" href="../"><img src="../img/bottlecap.svg" alt="Pub crawl bottle cap logo"></a>
+    </nav>
+
+    <!-- Blackboard container holds route map, buttons to progress route and twitter feeds-->
+    <div class="grid-container blackboard">
+        <div class="strike">
+            <span>Display Trail</span>
+        </div>
+
+        <!-- Container for route progress buttons -->
+        <div class="grid-container text-center">
+            <div class="grid-container">
+                <p>Crawl Name: <span class="crawlname"></span> </p>
+                <p>Location: <span class="crawlLocation"></span> </p>
+                <p><a href="javascript:void(0)"><input onclick="toggle_visibility('popupBoxTwoPosition');" class="button-right" type="button" id="ratings" value="Rate Trail"></a></p>
+
+                <input class="button-right" type="button" id="pubNext" value="Begin Crawl">
+            </div>
+        </div>
+
+        <!-- Container for route map -->
+        <div class="grid-container">
+            <div class="strike">
+                <span>Route Map</span>
+            </div>
+            <div id="map"></div>
+                <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
+                </script>
+        </div>
+
+        <!-- Container for twitter feeds -->
+        <div class="grid-container">
+            <div class="strike">
+                <span>Twitter Feed</span>
+
+            </div>
+            <div class="grid-container text-center">
+                <div id="tweets">
+                    <p id="TweetName">Tweets</p>
+                    <ul id ="twitter">
+                    </ul>
+               </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer container starts here holds shelf, terms and conditions link and group logo-->
+    <footer class="grid-container">
+        <div class="shelf">
+            <div class="footer-left">
+                <a href="../Terms/">Terms and Conditions</a>
+            </div>
+            <div class="footer-right">
+                <a class="footer-logo" href="https://github.com/CodeTheCity/PathFinder" target="_blank" title="City the city"></a>
+            </div>
+        </div>
+        <div class="shelf-edge"></div>
+    </footer>
+
+    <!--Ratings Popup Div-->
+    <div id="popupBoxTwoPosition">
+        <div class="popupBoxTwoWrapper grid-container">
+            <div class="grid-100 grid-parent  blackboard">
+                    <h2>Rate Pub Crawl:</h2>
+                    <figure class="blank-page-post-thumbnail grid-30 grid-parent">
+                        <img src="../img/family_guy_barfing.gif" alt="Good times.." title ="Good times..."/>
+                    </figure>
+                    <section class="blank-page-post-content grid-80 grid-parent">
+                        <!--Ratings route form-->
+                        <form id = "RatingForm" action = "#" method = "get">
+                        <p>Crawl Name: <span class="crawlname"></span></p>
+                        <p>Location: <span class="crawlLocation"></span></p>
+                        <p>Rating:
+                            <select id = "Rating" title="Rating">
+                                <option value="1">*</option>
+                                <option value="2">**</option>
+                                <option value="3">***</option>
+                                <option value="4">****</option>
+                                <option value="5">*****</option>
+                            </select>
+                        </p>
+                        <br/>
+                            <!--Submit Ratings to firebase-->
+                        <input class="button-blackboard button-left"  type = "button" name = "loginSubmit" value="Submit" id = "RatingSubmit"/>
+                            <!--Close Div-->
+                        <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
+                </form>
+                    </section>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
