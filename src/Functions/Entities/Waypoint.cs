@@ -18,5 +18,6 @@ namespace Functions.Entities
         public string Url { get; internal set; }
         public string TelephoneNumber { get; internal set; }
         public string Category { get; internal set; }
+        public int TourId { get; internal set; }
     }
 }

@@ -19,6 +19,7 @@ namespace Functions {
             string json = JsonConvert.SerializeObject(new[] {
                 new Waypoint {
                     WaypointId = 1,
+                    TourId = 0,
                     Name = "Slains Castle",
                     Latitude = 57.4153798,
                     Longitude = -1.9023549,
