@@ -42,8 +42,6 @@ get_data(scrape_url).then(data => {
 					}				
 				} 
 
-				
-
 				castles.push({
 					Name: data[i].name,
 					Description: data[i].description,
@@ -59,12 +57,10 @@ get_data(scrape_url).then(data => {
 			}
 		}
 
-
 		resolve(castles);
 	}).then(castles => {
 		console.log(castles);
 		fs.writeFile('data/castles.json', JSON.stringify(castles) );
-		console.log(castles.length);
 	});
 
 });
