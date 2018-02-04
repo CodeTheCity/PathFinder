@@ -1,3 +1,7 @@
 *.suo
 /.vs
 /src/.vs
+*.user
+bin
+obj
+src/packages
