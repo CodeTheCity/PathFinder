@@ -1,0 +1,374 @@
+/*  Pub Crawl web app StyleSheet
+    By CASA group for CM2003
+ */
+body{
+    background-color: #000000;
+    font-family: "chawp","serif";
+    /*background-image: url("../img/Dunnottar_Castle.jpg");*/
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+/*
+    CUSTOM FONT
+*/
+
+@font-face {
+    font-family: 'chawp';
+    src: url('font/chawp-webfont.eot');
+    src: url('font/chawp-webfont.eot?#iefix') format('embedded-opentype'),
+    url('font/chawp-webfont.woff2') format('woff2'),
+    url('font/chawp-webfont.woff') format('woff'),
+    url('font/chawp-webfont.ttf') format('truetype'),
+    url('font/chawp-webfont.svg#chawpregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/*
+    Navigation
+    Area where the team logo and the app title go
+*/
+nav {
+}
+
+site-title a h1{
+    font-size: 40px;
+
+}
+.site-title img{
+    width: 10em;
+}
+.site-title img:hover{
+    opacity: 0.8;
+}
+
+/*
+    A(Hypertext Links) tag override
+*/
+a{
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    color: #495966;
+}
+a:visited{
+    color: white;
+}
+/*
+    Footer
+*/
+footer{
+    font-family: serif;
+    margin-top: 3em;
+}
+.footer-logo{
+    position: relative;
+    bottom: 3.5em;
+    z-index: 2;
+    float: right;
+    height: 80px;
+    width: 80px;
+    background: transparent url('../img/cropped-new-badge.png') no-repeat;
+}
+
+.footer-logo:hover{
+    opacity: 0.8;
+}
+
+/*.footer-logo:hover{*/
+/*width: 80px;*/
+/*height: 76px;*/
+/*background-position: -90px -5px;*/
+/*}*/
+.footer-left{
+    float: left;
+}
+
+.footer-left a{
+    color:black;
+}
+.footer-right{
+    float: right;
+}
+/*
+    SHELF
+    http://www.ocular-rhythm.com/creating-a-shelf-in-css/
+*/
+.shelf {
+    position:relative;
+    /*z-index:1;*/
+    border-bottom: 1.5em solid #a2a2a2;
+    border-left: 1vw solid transparent;
+    border-right: 1vw solid transparent;
+}
+.shelf-edge {
+    height: 2em;
+    /*z-index: 99;*/
+    position: relative;
+    background: #E6E6E6;
+}
+/*
+    MAP
+*/
+#map{
+    height: 50vh;
+    color: black;
+}
+/*
+    BLACKBOARD
+*/
+.blackboard{
+    color: white;
+    background-color: black;
+    border: 1em groove #FFE800;
+    padding: 1em;
+    background-image: url("../img/bg.png");
+}
+/*
+    Strike
+    This is a title that looks like it has a <hr> on each side
+*/
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    margin: 1em ;
+    word-break: keep-all;
+}
+
+.strike > span {
+    position: relative;
+    display: inline-block;
+    font-size: 26px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background: white;
+}
+
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+/*
+    Pub List
+    for the list of pubs on the create, generate, and view route pages
+*/
+.pub-list{
+    list-style: none;
+}
+.pub-list li{
+    border: white 0.1em solid;
+    padding: 1em;
+
+}
+/*
+    Front page
+*/
+#choose-a-route .button{
+    width: 90%;
+}
+
+/*
+    Controls
+    This is for all the custom elements that are added to the map
+*/
+
+/*
+    Google Controls overrides
+*/
+/*Map type*/
+.gm-style-mtc div{
+    background-color: black!important;
+    color: white!important;
+}
+.gm-style-mtc div:hover{
+    background-color: white!important;
+    color: #EB7D2F!important;
+}
+/*Zoom buttons*/
+.gm-bundled-control-on-bottom div{
+    background-color: black;
+    color: white;
+}
+
+.controls {
+    font-family: chawp;
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.controls-select-container{
+    background-color: black;
+    color: white;
+    font-family: chawp;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 10px;
+}
+
+.controls-select{
+    background-color: black;
+    color: white;
+    height: 100%;
+}
+
+#location-search {
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 30vw;
+}
+
+#location-search:focus {
+    border-color: #ffe800;
+    color: white;
+}
+
+#controls-buttons-container{
+    margin-bottom: 10px;
+}
+
+/*
+    Button
+    This is a basic button class
+*/
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    display: inline-block;
+    height: 38px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    word-wrap: break-word;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: black;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+    color: white;
+    font-family: chawp;
+}
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+    background-color: white;
+    color: black;
+    outline: 0;
+}
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus{
+    color: #EB7D2F;
+}
+
+.button-left{
+    float:left;
+}
+
+.button-right{
+    float:right;
+}
+/*
+    Text Alignment classes
+*/
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/*Pop-up Rating Box (Display Page)*/
+#ratings
+{
+    display: none;
+}
+
+#popupBoxTwoPosition{
+    top: 0;
+    left: 0;
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
+}
+.popupBoxTwoWrapper {
+    width: 500px;
+    min-width: 330px;
+    padding-bottom: 100px;
+    margin: 20px auto;
+    text-align: left;
+
+}
+.popupBoxContent{
+    background-color: #ECECED;
+    margin:0 auto;
+}
+form{
+    display: block;
+    margin-top: 0em;
+}
+#RatingForm{
+    padding: 10% 1% 20% 10%;;
+}
+#RatingForm input{
+    float:left;
+}
+
+/*
+    Twitter styling
+*/
+.tweet{
+    border: white 0.1em solid;
+    padding: 1em;
+}
+.tweet a{
+    text-decoration: underline;
+}
