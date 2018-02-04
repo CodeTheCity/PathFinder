@@ -72,7 +72,7 @@ function searchRadius(place,numPubs,radius,mapMarkers){
                         stopover: true
                     });
                     placeNames.push({
-                        pubName: response[i].name
+                        pubName: response.items[i].name
                     })
 
                     $('#route-list').append('<li><span style="color:green;">' + letter[i] + ':</span> ' + response[i].name + '</li>');
@@ -121,28 +121,23 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
         // markers for each step.
         if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
-            for(i; i < response.routes;i++)
+            for(i = 0; i < response.routes;i++)
             {
                 response.routes[i].location
-                marker.addListener('click', function() {
+                marker.info = new google.maps.InfoWindow({
+                    content: '<b>Name: </b> ' + infowindows[i].name
+                });
 
-                    var mar = this;
+                console.log("Info windows");
+                console.log(infowindows[i]);
 
-                    infowindow.setContent(
-                        '<b>' + pub.name + '</b></br>'
-                        +'Rating: ' + rating + '</br>'
-                        // +'Open Hours: ' + pub.opening_hours[0] + '</br>'
-                        +'<input class="button button-blackboard markerbut" id="marker-add" type="button" value="Add Pub" >');
-                    infowindow.open(map, marker);
-                    $('#marker-add').on("click",function () {
-                        $(this).hide();
-                        addPub(location,pub.name);
-                    });
+                google.maps.event.addListener(marker, 'click', function() {
+                    marker.info.open(map, marker);
                 });
             }
             window.location.hash = 'route';
             route = response.routes[0];
-            
+
 
         } else {
             window.alert('Directions request failed due to ' + status);
@@ -215,7 +210,7 @@ function push(){
 
     var newPush = casaDataRef.push({ crawlName: crawlName, crawlLocation: crawlLocation});
     var newKey = newPush.key();
-    
+
     //Get waypoints and store in firebase
     for (i = 0; i < waypoints.length; i++) {
         casaDataRef.child(newKey).child('waypoints').child(i).set({lat: waypoints[i].location.lat(),lng:waypoints[i].location.lng(), stopover: waypoints[i].stopover, PubName: placeNames[i].pubName});
