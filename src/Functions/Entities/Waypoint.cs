@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Functions.Entities
-{
+namespace Functions.Entities {
+    [Table(nameof(Waypoint))]
     public class Waypoint {
-        public int WaypointId { get; internal set; }
-        public string Name { get; internal set; }
-        public double Latitude { get; internal set; }
-        public double Longitude { get; internal set; }
-        public string Description { get; internal set; }
-        public bool HasFee { get; internal set; }
-        public bool IsAccessible { get; internal set; }
-        public bool HasParking { get; internal set; }
-        public string Url { get; internal set; }
-        public string TelephoneNumber { get; internal set; }
-        public string Category { get; internal set; }
-        public int TourId { get; internal set; }
+        [Key]
+        public int WaypointId { get; set; }
+        public string Name { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Description { get; set; }
+        public bool HasFee { get; set; }
+        public bool IsAccessible { get; set; }
+        public bool HasParking { get; set; }
+        public string Url { get; set; }
+        public string TelephoneNumber { get; set; }
+        public string Category { get; set; }
+
+        public int TourId { get; set; }
+        public Tour Tour { get; set; }
     }
 }
