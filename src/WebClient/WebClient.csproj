@@ -66,6 +66,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\font\chawp-webfont.eot" />
+    <Content Include="css\font\chawp-webfont.ttf" />
+    <Content Include="css\font\chawp-webfont.woff" />
+    <Content Include="css\font\chawp-webfont.woff2" />
+    <Content Include="css\font\chawp.otf" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CTC12-PathFinders - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
@@ -76,7 +81,65 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\font\chawp-webfont.svg" />
+    <Content Include="css\style.css" />
+    <Content Include="css\style.min.css" />
+    <Content Include="css\unsemantic-grid-responsive.css" />
+    <Content Include="css\unsemantic.min.css" />
+    <Content Include="display\index.html" />
+    <Content Include="display\js\display.js" />
+    <Content Include="display\js\display.min.js" />
+    <Content Include="generate\index.html" />
+    <Content Include="generate\js\generate.js" />
+    <Content Include="generate\js\generate.min.js" />
+    <Content Include="img\bar.png" />
+    <Content Include="img\bar2.png" />
+    <Content Include="img\bg.png" />
+    <Content Include="img\bottlecap.png" />
+    <Content Include="img\bottlecap.svg" />
+    <Content Include="img\code_the_city.jpg" />
+    <Content Include="img\cropped-new-badge.png" />
+    <Content Include="img\Drink-Father-Jack.gif" />
+    <Content Include="img\Dunnottar_Castle.jpg" />
+    <Content Include="img\family_guy_barfing.gif" />
+    <Content Include="img\irish7.gif" />
+    <Content Include="img\logo_spritesheet.png" />
+    <Content Include="img\logo_spritesheet.svg" />
+    <Content Include="img\tinified\house1text1.png" />
+    <Content Include="img\tinified\house1text2.png" />
+    <Content Include="img\tinified\house1text3.png" />
+    <Content Include="img\tinified\house1text4.png" />
+    <Content Include="img\tinified\house1text5.png" />
+    <Content Include="img\tinified\house2text1.png" />
+    <Content Include="img\tinified\house2text2.png" />
+    <Content Include="img\tinified\house2text3.png" />
+    <Content Include="img\tinified\house2text4.png" />
+    <Content Include="img\tinified\house2text5.png" />
+    <Content Include="img\tinified\house3text1.png" />
+    <Content Include="img\tinified\house3text2.png" />
+    <Content Include="img\tinified\house3text3.png" />
+    <Content Include="img\tinified\house3text4.png" />
+    <Content Include="img\tinified\house3text5.png" />
+    <Content Include="img\tinified\house4text1.png" />
+    <Content Include="img\tinified\house4text2.png" />
+    <Content Include="img\tinified\house4text3.png" />
+    <Content Include="img\tinified\house4text4.png" />
+    <Content Include="img\tinified\house4text5.png" />
+    <Content Include="img\tinified\house5text1.png" />
+    <Content Include="img\tinified\house5text2.png" />
+    <Content Include="img\tinified\house5text3.png" />
+    <Content Include="img\tinified\house5text4.png" />
+    <Content Include="img\tinified\house5text5.png" />
+    <Content Include="img\wood.jpg" />
+    <Content Include="img\wood.svg" />
     <Content Include="index.html" />
+    <Content Include="js\front.js" />
+    <Content Include="js\front.min.js" />
+    <Content Include="js\methods.js" />
+    <Content Include="js\methods.min.js" />
+    <Content Include="js\view.js" />
+    <Content Include="js\view.min.js" />
+    <Content Include="terms\index.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
