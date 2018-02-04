@@ -1,0 +1,23 @@
+{
+  "name": "ctc12",
+  "version": "1.0.0",
+  "description": "Visit Scotland castle route scraper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codethecity/ctc12.git"
+  },
+  "author": "Paul Castle",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/codethecity/ctc12/issues"
+  },
+  "homepage": "https://github.com/codethecity/ctc12#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "request": "^2.83.0"
+  }
+}
