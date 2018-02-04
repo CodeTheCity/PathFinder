@@ -68,9 +68,11 @@ function setup()
         calculateAndDisplayRoute(directionsDisplay, directionsService);
         google.maps.event.trigger(map, 'resize');
 
-        //Display first pub's tweets
-        $("#TweetName").html("Current Location: "+ placesNames[0].pubName);
-        displayTweets(placesNames[0].pubName);
+        //Display first location's tweets
+        $("#TweetName").html("Current Location: "+ placesNames[0].locationName);
+        displayTweets(placesNames[0].locationName);
+        $(".locationName").html(placesNames[0].locationName);
+        $(".locationDescription").html("<br/>" + placesNames[0].description);
 });
 }
 
@@ -104,7 +106,9 @@ function getFireBaseDB(ID)
             var lng =  data.lng;
             var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
             var stopover = data.stopover;
-            var name = data.PubName;
+            var name = data.locationName;
+            var description = data.description;
+
 
             //add marker details to marker array
             markers.push({
@@ -113,7 +117,7 @@ function getFireBaseDB(ID)
             });
             //get placenames for all pubs
             placesNames.push({
-                pubName: name
+                locationName: name
             })
         });
         /*Crawl Waypoints Fetch from firebase ENDS*/
@@ -121,9 +125,12 @@ function getFireBaseDB(ID)
         calculateAndDisplayRoute(directionsDisplay, directionsService);
         google.maps.event.trigger(map, 'resize');
 
-        //Display first pub's tweets
-        $("#TweetName").html("Current Pub: "+ placesNames[0].pubName);
-        displayTweets(placesNames[0].pubName);
+        //Display first Location tweets
+        $("#TweetName").html("Current Pub: "+ placesNames[0].locationName);
+        displayTweets(placesNames[0].locationName);
+        //Display location info
+        $(".locationName").html(placesNames[0].locationName);
+        $(".locationDescription").html("<br/>" + placesNames[0].description);
 
     });
 }
@@ -154,6 +161,7 @@ function pullWaypoints(waypointsURL) {
                 var lat = val.Latitude;
                 var lng = val.Longitude;
                 var name = val.Name;
+                var description = val.Description;
                 var url = val.Url;
                 var hasFee = val.HasFee;
                 var isAccessible = val.IsAccessible;
@@ -181,7 +189,12 @@ function pullWaypoints(waypointsURL) {
 
                 //get placenames for all pubs
                 placesNames.push({
-                    pubName: name
+                    locationName: name,
+                    description: description,
+                    url: url,
+                    hasFee: hasFee,
+                    isAccessible: isAccessible,
+                    hasParking: hasParking
                 })
 
                 letterCount++;
@@ -250,9 +263,11 @@ function initMap() {
             }
 
             //Display current pub in tweets section
-            $("#TweetName").html("Current Location: "+ placesNames[count].pubName);
+            $("#TweetName").html("Current Location: "+ placesNames[count].locationName);
+            $(".locationName").html(placesNames[count].locationName);
+            $(".locationDescription").html(placesNames[count].description);
             //Get tweets from curret pub on crawl
-            displayTweets(placesNames[count].pubName);
+            displayTweets(placesNames[count].locationName);
             //get latitude and longitude from route leg
             var nextPub = new google.maps.LatLng(+route.legs[count].start_location.lat(), +route.legs[count].start_location.lng());
 
@@ -269,9 +284,9 @@ function initMap() {
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
             
             //Display current pub in tweets section
-            $("#TweetName").html("Current Loocation: "+ placesNames[count].pubName);
+            $("#TweetName").html("Current Loocation: "+ placesNames[count].locationName);
 
-            displayTweets(placesNames[count].pubName)
+            displayTweets(placesNames[count].locationName)
 
             //Go to final pub on the crawl
             //get latitude and longitude from route leg

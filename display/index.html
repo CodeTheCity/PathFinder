@@ -59,14 +59,16 @@
         <div class="grid-container">
             <div class="strike">
                 <span>Location Information</span>
-
             </div>
 
             <div class="grid-container text-center">
-                <div id="tweets">
-                    <p id="TweetName">Tweets</p>
-                    <ul id ="twitter">
-                    </ul>
+                <div id="info">
+                    <p>Location Name: <span class="locationName"></span> </p>
+                    <p>Description: <br/> <span class="locationDescription"></span> </p>
+                    <!--<p>Parking <span class="locationParking"></span> </p>-->
+                    <!--<p>Has Fee: <span class="locationFee"></span> </p>-->
+                    <!--<p>Is Accessible <span class="locationAccess"></span> </p>-->
+
                 </div>
             </div>
         </div>
@@ -110,8 +112,7 @@
                     <section class="blank-page-post-content grid-80 grid-parent">
                         <!--Ratings route form-->
                         <form id = "RatingForm" action = "#" method = "get">
-                        <p>Crawl Name: <span class="crawlname"></span></p>
-                        <p>Location: <span class="crawlLocation"></span></p>
+                        <p>Tour Name: <span class="tourname"></span></p>
                         <p>Rating:
                             <select id = "Rating" title="Rating">
                                 <option value="1">*</option>
