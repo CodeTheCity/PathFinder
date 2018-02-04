@@ -12,18 +12,18 @@ body{
 /*
     CUSTOM FONT
 */
-@font-face { font-family: chawp; src: url('http://tm.wildman-productions.org/font/chawp.otf');  }
-/*@font-face {*/
-    /*font-family: 'chawp';*/
-    /*src: url('font/chawp-webfont.eot');*/
-    /*src: url('font/chawp-webfont.eot?#iefix') format('embedded-opentype'),*/
-    /*url('font/chawp-webfont.woff2') format('woff2'),*/
-    /*url('font/chawp-webfont.woff') format('woff'),*/
-    /*url('font/chawp-webfont.ttf') format('truetype'),*/
-    /*url('font/chawp-webfont.svg#chawpregular') format('svg');*/
-    /*font-weight: normal;*/
-    /*font-style: normal;*/
-/*}
+
+@font-face {
+    font-family: 'chawp';
+    src: url('font/chawp-webfont.eot');
+    src: url('font/chawp-webfont.eot?#iefix') format('embedded-opentype'),
+    url('font/chawp-webfont.woff2') format('woff2'),
+    url('font/chawp-webfont.woff') format('woff'),
+    url('font/chawp-webfont.ttf') format('truetype'),
+    url('font/chawp-webfont.svg#chawpregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 /*
     Navigation
     Area where the team logo and the app title go

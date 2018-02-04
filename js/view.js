@@ -17,26 +17,24 @@ var ratings = [];
 
 $(document).ready(function(){
 
-
     $('#route').hide();
 
-    // pullTours();
 
-
-
-    // pullLocations();
+    pullTours();
+    pullWaypoints();
 
     //Change locations
-    $('#pub-locations').change(function(){
-        clearRoute();
-        pullRoutes($('#pub-locations option:selected').text());
+    $('#tours').change(function(){
+        // clearRoute();
+
+        var tour =$('#tours option:selected').text();
+
+
+        $('#tour-name').html(tour);
+        // pullRoutes($('#pub-locations option:selected').text());
     });
 
-    //Change route
-    $('#pub-routes').change(function(){
-        clearRoute();
-        pullRouteInfo();
-    });
+
 
     //Redirect to display page with route id on start route clicked
     $('#start-form').on('submit',function()
@@ -47,54 +45,33 @@ $(document).ready(function(){
 
 });
 
- initMap();
-
- google.maps.event.addListenerOnce(map, 'idle', function(){
-     pullWaypoints();
- });
-
- function initMap() {
-     var myCenter;
-     var myOptions = {
-         center: {lat: 0, lng: 0},
-         zoom: 14,
-         styles: [{
-             featureType: 'poi',
-             stylers: [{visibility: 'off'}]  // Turn off points of interest.
-         }, {
-             featureType: 'transit.station',
-             stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
-         }],
-         fullscreenControl: true
-     };
-
-     //Create new map
-     map = new google.maps.Map(document.getElementById('map'), myOptions);
-     //Related map services
-     directionsService = new google.maps.DirectionsService;
-     directionsDisplay = new google.maps.DirectionsRenderer({map: map});
-     geocoder = new google.maps.Geocoder;
- }
-
 function pullTours(){
     $.getJSON(toursURL, function( data ) {
         var items = [];
 
         $.each( data, function( key, val ) {
-            items.push( "<li id='" + key + "'>" + val + "</li>" );
-            console.log(key, val);
+
+            var name = val.Name;
+            var id = val.TourId;
+            console.log(name);
+            $('#tours').append('<option value="' + id + '">' + name + '</option>');
+
         });
 
-       console.log( items.toString());
+        var tour =$('#tours option:selected').text();
 
-        $( "<ul/>", {
-            "class": "my-new-list",
-            html: items.join( "" )
-        }).appendTo( "body" );
+
+        $('#tour-name').html(tour);
+
     });
 }
 
 function pullWaypoints(){
+
+    //letter array for easily identify the  names
+    var letter = ["A","B","C","D","E","F","G","H","I","J"];
+    var letterCount = 0;
+
         $.each(jsonString, function( key, val ) {
             //items.push(key, val);
             var lat = val.Latitude;
@@ -105,46 +82,25 @@ function pullWaypoints(){
             var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
 
 
-
-
-
-            // $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
+            $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
 
             //add marker details to marker array
             markers.push({
                 location: location,
                 stopover: true
             });
+
+            letterCount++;
         });
 
-        console.log(markers);
 
-    // jsonString.forEach(function(waypoints) {
-    //
-    //     var data = waypoints;
-    //     console.log(data);
-    //     //rebuild location
-    //     var lat = data.lat;
-    //     var lng =  data.lng;
-    //     var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
-    //     var stopover = data.stopover;
-    //     var name = data.PubName;
-    //
-    //     console.log(name);
-    //
-    //     $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
-    //
-    //     //add marker details to marker array
-    //     markers.push({
-    //         location: location,
-    //         stopover: true
-    //     });
-    //
-    //     letterCount++;
-    // });
-    /*Crawl Waypoints Fetch from firebase ENDS*/
+
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map});
+
     calculateAndDisplayRoute(directionsDisplay, directionsService);
     google.maps.event.trigger(map, 'resize');
+
 }
 
 /*
@@ -296,17 +252,18 @@ function pullRouteInfo(){
     });
 }
 
-/*
+ /*
  * Google maps
  * */
-function initMap() {
+ function initMap() {
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 0, lng: 0},
-        zoom: 2,
-        fullscreenControl: true
-    });
+     map = new google.maps.Map(document.getElementById('map'), {
+         center: {lat: 0, lng: 0},
+         zoom: 2,
+         fullscreenControl: true
+     });
 
-    // Add custom map controls to the map
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('controls-select-container'));
-}
+     // Add custom map controls to the map
+     map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('controls-select-container'));
+
+ }
