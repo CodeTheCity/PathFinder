@@ -9,14 +9,19 @@
 var map;
 var crawlName;
 var crawlLocation;
-var fireBaseID; //Firebase push ID
-var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
+var tourID;
+var tourURL;
+var waypointsURL; //Waypoints ID (From URL)
 var markers = [];
+var infowindow;
+var infowindows = [];
 var directionsService;
 var directionsDisplay;
 var route;
 var placesNames = [];
 var defaultCenter;
+var letter = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
 /*
 * Current URL Structure:
 *
@@ -41,15 +46,32 @@ function GetURLParameter(sParam)
 }
 
 
-//Run setup function bellow
+//Run setup function below
 setup();
 
 
 function setup()
 {
     //check for id field..
-    fireBaseID = GetURLParameter("id");
-    getFireBaseDB(fireBaseID);
+    tourID = GetURLParameter("id");
+
+    waypointsURL = 'https://ctc12.azurewebsites.net/api/Waypoints/tour/' + tourID;
+    tourURL = 'https://ctc12.azurewebsites.net/api/tours/' + tourID;
+    console.log(waypointsURL);
+    console.log(tourURL);
+
+    pullTours(tourURL);
+
+
+
+        pullWaypoints(waypointsURL).then(() => {
+        calculateAndDisplayRoute(directionsDisplay, directionsService);
+        google.maps.event.trigger(map, 'resize');
+
+        //Display first pub's tweets
+        $("#TweetName").html("Current Location: "+ placesNames[0].pubName);
+        displayTweets(placesNames[0].pubName);
+});
 }
 
 
@@ -106,6 +128,84 @@ function getFireBaseDB(ID)
     });
 }
 
+
+function pullTours(toursURL) {
+    $.getJSON(toursURL, function (data) {
+        console.log(data);
+        var name = data.Name;
+        console.log(name);
+        $(".tourname").html(name);
+    });
+}
+
+
+function pullWaypoints(waypointsURL) {
+    return new Promise((resolve) => {
+
+        //a 	b 	c 	d 	e 	f 	g 	h 	i 	j 	k 	l 	m 	n 	o 	p 	q 	r 	s 	t 	u 	v 	w 	x 	y 	z
+        //letter array for easily identify the  names
+         var letterCount = 0;
+    var count = 0;
+    $.getJSON(waypointsURL, function (data) {
+
+        $.each(data, function (key, val) {
+            if (count < 15) {
+                //items.push(key, val);
+                var lat = val.Latitude;
+                var lng = val.Longitude;
+                var name = val.Name;
+                var url = val.Url;
+                var hasFee = val.HasFee;
+                var isAccessible = val.IsAccessible;
+                var hasParking = val.HasParking;
+                console.log(name);
+
+                infowindows.push({
+                    Name: name,
+                    url: url,
+                    hasFee: hasFee,
+                    isAccessible: isAccessible,
+                    hasParking: hasParking
+                });
+
+                var location = new google.maps.LatLng(+lat, +lng); //convert lat + lng into location
+
+
+                $('#route-list').append('<li><span style="color:green;">' + letter[letterCount] + ': </span>' + name + '</li>');
+
+                //add marker details to marker array
+                markers.push({
+                    location: location,
+                    stopover: true
+                });
+
+                //get placenames for all pubs
+                placesNames.push({
+                    pubName: name
+                })
+
+                letterCount++;
+
+            }
+            console.log(count);
+            count++;
+
+        });
+
+        // shuffleArray(markers);
+
+        if(markers.length >= 15)
+        {
+            markers = markers.slice(0,14);
+        }
+
+
+
+        resolve();
+    });
+});
+}
+
 //Display google maps (initial setup - callback function)
 function initMap() {
     var myCenter;
@@ -138,7 +238,7 @@ function initMap() {
     /*Next pub event */
     var count = 0;
     google.maps.event.addDomListener(document.getElementById("pubNext"), "click", function(ev) {
-        $('#pubNext').val("Next Pub"); //
+        $('#pubNext').val("Next Location "); //
         var max  = markers.length+ 1;
 
         if(count <= markers.length)
@@ -150,7 +250,7 @@ function initMap() {
             }
 
             //Display current pub in tweets section
-            $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
+            $("#TweetName").html("Current Location: "+ placesNames[count].pubName);
             //Get tweets from curret pub on crawl
             displayTweets(placesNames[count].pubName);
             //get latitude and longitude from route leg
@@ -169,7 +269,7 @@ function initMap() {
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('ratings'));
             
             //Display current pub in tweets section
-            $("#TweetName").html("Current Pub: "+ placesNames[count].pubName);
+            $("#TweetName").html("Current Loocation: "+ placesNames[count].pubName);
 
             displayTweets(placesNames[count].pubName)
 
@@ -231,7 +331,7 @@ function displayTweets(placeName)
             }
             else //No tweets? Then display relevant message
             {
-                document.getElementById("twitter").innerHTML = "No tweets found for this pub";
+                document.getElementById("twitter").innerHTML = "No tweets found for this location";
             }
 
         }

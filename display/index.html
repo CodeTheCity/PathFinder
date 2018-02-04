@@ -3,6 +3,7 @@
 <!-- Header starts here holds links to CSS files and google map script-->
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta charset="UTF-8">
     <title>PathFinder | Display Trail </title>
 
     <!--Unsemantic framework CSS-->
@@ -24,9 +25,8 @@
 <body>
     <!-- Navigation container starts here holds app logo/tile -->
     <nav class="grid-container text-center">
-        <a class="site-title" href="../"><img src="../img/bottlecap.svg" alt="Pub crawl bottle cap logo"></a>
+        <a class="site-title" href="../"><h1>Pathfinder | Aberdeen</h1></a>
     </nav>
-
     <!-- Blackboard container holds route map, buttons to progress route and twitter feeds-->
     <div class="grid-container blackboard">
         <div class="strike">
@@ -36,11 +36,11 @@
         <!-- Container for route progress buttons -->
         <div class="grid-container text-center">
             <div class="grid-container">
-                <p>Crawl Name: <span class="crawlname"></span> </p>
-                <p>Location: <span class="crawlLocation"></span> </p>
+                <p>Tour Name: <span class="tourname"></span> </p>
+
                 <p><a href="javascript:void(0)"><input onclick="toggle_visibility('popupBoxTwoPosition');" class="button-right" type="button" id="ratings" value="Rate Trail"></a></p>
 
-                <input class="button-right" type="button" id="pubNext" value="Begin Crawl">
+                <input class="button-right" type="button" id="pubNext" value="Begin Trail">
             </div>
         </div>
 
@@ -53,6 +53,22 @@
                 <script async defer
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
                 </script>
+        </div>
+
+        <!--Current Location Information-->
+        <div class="grid-container">
+            <div class="strike">
+                <span>Location Information</span>
+
+            </div>
+
+            <div class="grid-container text-center">
+                <div id="tweets">
+                    <p id="TweetName">Tweets</p>
+                    <ul id ="twitter">
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- Container for twitter feeds -->
@@ -69,6 +85,8 @@
                </div>
             </div>
         </div>
+
+
     </div>
 
     <!-- Footer container starts here holds shelf, terms and conditions link and group logo-->
@@ -88,10 +106,7 @@
     <div id="popupBoxTwoPosition">
         <div class="popupBoxTwoWrapper grid-container">
             <div class="grid-100 grid-parent  blackboard">
-                    <h2>Rate Pub Crawl:</h2>
-                    <figure class="blank-page-post-thumbnail grid-30 grid-parent">
-                        <img src="../img/family_guy_barfing.gif" alt="Good times.." title ="Good times..."/>
-                    </figure>
+                    <h2>Rate Trail:</h2>
                     <section class="blank-page-post-content grid-80 grid-parent">
                         <!--Ratings route form-->
                         <form id = "RatingForm" action = "#" method = "get">
@@ -113,7 +128,6 @@
                         <input class="button-blackboard button-right" type = "button"  href="javascript:void(0)" onclick="toggle_visibility('popupBoxTwoPosition');" class = "CloseButton" value ="Close"/>
                 </form>
                     </section>
-
             </div>
         </div>
     </div>

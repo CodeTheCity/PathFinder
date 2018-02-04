@@ -104,6 +104,7 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
     var start = markers[0].location;
     var end = markers[markers.length-1].location;
 
+
     //remove the first and last locations for using the rest as waypoints
     markers.shift();
     markers.pop();
@@ -123,17 +124,19 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService) {
             directionsDisplay.setDirections(response);
             for(i = 0; i < response.routes;i++)
             {
-                response.routes[i].location
-                marker.info = new google.maps.InfoWindow({
-                    content: '<b>Name: </b> ' + infowindows[i].name
-                });
+                console.log(infowindows[i].Name);
 
-                console.log("Info windows");
-                console.log(infowindows[i]);
-
-                google.maps.event.addListener(marker, 'click', function() {
-                    marker.info.open(map, marker);
-                });
+                // response.routes[i].location
+                // marker.info = new google.maps.InfoWindow({
+                //     content: '<b>Name: </b> ' + infowindows[i].name
+                // });
+                //
+                // console.log("Info windows");
+                // console.log(infowindows[i]);
+                //
+                // google.maps.event.addListener(marker, 'click', function() {
+                //     marker.info.open(map, marker);
+                // });
             }
             window.location.hash = 'route';
             route = response.routes[0];
@@ -183,6 +186,21 @@ function addMarker(location, map, pub) {
 
 }
 
+function createMarker(latlng, title, content) {
+
+    var marker = new google.maps.Marker({
+        position: latlng,
+        title: title,
+        map: map
+    });
+
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+    });
+}
+
+
 function addPub(publoc,pubname){
 
     placeNames.push({
@@ -197,8 +215,6 @@ function addPub(publoc,pubname){
     $('#route-list').append('<li>' + pubname + '</li>');
     $('#route').show();
 }
-
-var casaDataRef = new Firebase('https://casa-pubcrawl.firebaseio.com/routes'); //Live site
 
 function push(){
 
