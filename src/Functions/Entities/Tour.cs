@@ -1,13 +1,15 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Functions.Entities
-{
+namespace Functions.Entities {
+    [Table(nameof(Tour))]
     public class Tour {
-        public int TourId { get; internal set; }
-        public string Name { get; internal set; }
+        [Key]
+        public int TourId { get; set; }
+        public string Name { get; set; }
+
+        public ICollection<Waypoint> Waypoints { get; set; }
     }
 }
