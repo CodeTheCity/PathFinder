@@ -32,7 +32,7 @@ get_data(scrape_url)
 				if (data[i].latitude !== "" || data[i].longitude !== "") {
 					scrapedata.push({
 						Name: data[i].name,
-						Description: data[i].type,
+						Description: image + "<br>" + data[i].type,
 						Category: 'Plaques',
 						Latitude: data[i].latitude,
 						Longitude: data[i].longitude,
