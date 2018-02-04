@@ -10,7 +10,7 @@ CREATE TABLE Waypoint (
     [Name] nvarchar(50) NOT NULL,
     Latitude decimal(18,9) NOT NULL,
     Longitude decimal(18,9) NOT NULL,
-    Description nvarchar(200) NOT NULL,
+    Description nvarchar(MAX) NOT NULL,
     HasFee bit NOT NULL,
     IsAccessible bit NOT NULL,
     HasParking bit NOT NULL,
