@@ -8,7 +8,7 @@ namespace Functions.Entities {
         private static readonly string connectionString = ConfigurationManager
                  .ConnectionStrings["FunctionsConnectionString"].ConnectionString;
 
-        protected DataContext() : base(CreateConnection(), true) {
+        public DataContext() : base(CreateConnection(), true) {
         }
 
         private static DbConnection CreateConnection() {
