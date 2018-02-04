@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Header starts here holds links to CSS files and google map script-->
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <title>Generate Route</title>
+
+    <!--Unsemantic framework CSS-->
+    <link rel="stylesheet" href="../css/unsemantic.min.css">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!--JQuery CDN-->
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+
+    <!-- FireBase scripts-->
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+    <!--Javascript methods-->
+    <script src="../js/methods.js"></script>
+
+    <!--Generate route script-->
+    <script src="js/generate.js"></script>
+
+</head>
+<body>
+<!-- Navigation container starts here holds app logo/tile -->
+    <nav class="grid-container text-center">
+        <a class="site-title" href="../"><img src="../img/bottlecap.svg" alt="Pub crawl bottle cap logo"></a>
+    </nav>
+
+    <!-- Blackboard container starts here holds options to generate a pub crawl and map for displaying route -->
+    <div class="grid-container blackboard">
+        <div class="strike">
+            <span>Generate A Route</span>
+        </div>
+
+        <!-- Container for map, route list and generate route link button-->
+        <div class="grid-container text-center">
+            <div class="controls controls-select-container" id="num-pubs-container">
+                <label>Pubs <select class="controls-select" id="num-pubs"></select></label>
+            </div>
+            <div id="controls-buttons-container">
+                <input id="route-reset" type="button" value="Clear Route">
+                <input id="route-submit" type="button" value="Generate">
+            </div>
+
+            <input class="controls" id="location-search" type="text" placeholder="Search" title="Location search">
+            <div id="map"></div>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRPtLqvmMenEaLmiPo0XqVOMvuVSGvEe0&libraries=visualization&libraries=places&callback=initMap">
+            </script>
+        </div>
+
+        <!-- Container for pub crawl list -->
+        <div class="grid-container" id="route">
+            <div class="strike">
+                <span>Pub Crawl Route</span>
+            </div>
+
+            <div class="grid-container text-center">
+                <ul class="pub-list" id="route-list"></ul>
+                <form  id="start-form">
+                    <p>Crawl Name <input type="text" class="crawlname" id="crawlname" required title="Crawl name"></p>
+                    <input id="start-route" type="submit" value="Start Route">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer container starts here holds shelf, terms and conditions link and group logo-->
+    <footer class="grid-container">
+        <div class="shelf">
+            <div class="footer-left">
+                <a href="">Terms and Conditions</a>
+            </div>
+            <div class="footer-right" title="City the city">
+                <a class="footer-logo" href="https://github.com/CodeTheCity/PathFinder" target="_blank" title="City the city"></a>
+            </div>
+        </div>
+        <div class="shelf-edge"></div>
+    </footer>
+</body>
+</html>

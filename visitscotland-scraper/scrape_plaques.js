@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const request = Promise.promisify(require("request"));
 const fs = require('fs');
 
+// https://githubt.com/watty62/PlaqueScraper/
 var scrape_url = 'https://raw.githubusercontent.com/watty62/PlaqueScraper/master/plaques.json';
 
 
@@ -24,9 +25,12 @@ get_data(scrape_url)
 			var scrapedata = [];
 
 			for (var i = data.length - 1; i >= 0; i--) {
+
+				// These properties are not defined in the original data set, so they reamin false yet defined to align with our data schema
 				var disabled_access = false;
 				var parking = false;
 
+				// Image tag to be appended to description property
 				var image = '<img src="https://raw.githubusercontent.com/watty62/PlaqueScraper/master/photos/' + data[i].photos[0] + '" alt="' + data[i].name + '" />';
 
 				if (data[i].latitude !== "" || data[i].longitude !== "") {
