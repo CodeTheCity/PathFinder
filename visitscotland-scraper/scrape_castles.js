@@ -2,8 +2,8 @@ const Promise = require('bluebird');
 const request = Promise.promisify(require("request"));
 const fs = require('fs');
 
+// Original dataset scraped from Visit Scotland site for the Aberdeen castle trail.
 var scrape_url = 'https://www.visitscotland.com/data/search/results?cat=castles&cat=monumentsruins&loc=Aberdeenshire+Castle+Trail&locpoly=51&locprox=0&prodtypes=acti%2Cattr%2Creta%2Ctour';
-
 
 function get_data(uri) {
 	return new Promise((resolve, reject) => {
@@ -25,7 +25,6 @@ get_data(scrape_url).then(data => {
 		for (var i = data.length - 1; i >= 0; i--) {
 
 			if (data[i].category === "Castles" ) {
-
 				var disabled_access = false;
 				var parking = false;
 
@@ -56,7 +55,6 @@ get_data(scrape_url).then(data => {
 				});
 			}
 		}
-
 		resolve(castles);
 	}).then(castles => {
 		console.log(castles);
