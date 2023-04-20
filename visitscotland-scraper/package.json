@@ -18,6 +18,6 @@
   "homepage": "https://github.com/codethecity/ctc12#readme",
   "dependencies": {
     "bluebird": "^3.5.1",
-    "request": "^2.83.0"
+    "request": "^2.88.2"
   }
 }
